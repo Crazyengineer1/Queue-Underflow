@@ -5,7 +5,7 @@ export class RegisterDto {
     email: String;
 
     @IsString()
-    userName: String;
+    username: String;
 
     @IsString()
     @Matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/, {
