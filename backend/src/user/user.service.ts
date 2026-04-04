@@ -5,13 +5,26 @@ import { PrismaService } from '../prisma/prisma.service';
 @Injectable()
 export class UserService {
     constructor(private readonly prisma: PrismaService) { }
-    async register(registerData: RegisterDto) {
+
+    async findByEmail(email: string) {
+        return this.prisma.user.findUnique({
+            where: { email },
+        });
+    }
+
+    async findByUsername(username: string) {
+        return this.prisma.user.findUnique({
+            where: { username },
+        });
+    }
+
+    async createUser(registerData: RegisterDto) {
         try {
             const user = await this.prisma.user.create({
                 data: {
-                    email: String(registerData.email),
-                    username: String(registerData.username),
-                    password: String(registerData.password)
+                    email: registerData.email,
+                    username: registerData.username,
+                    password: registerData.password
                 }
             });
             return {
