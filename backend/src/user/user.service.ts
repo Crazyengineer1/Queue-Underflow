@@ -19,20 +19,20 @@ export class UserService {
     }
 
     async createUser(registerData: RegisterDto) {
-        try {
-            const user = await this.prisma.user.create({
-                data: {
-                    email: registerData.email,
-                    username: registerData.username,
-                    password: registerData.password
-                }
-            });
-            return {
-                "MSG": "User created",
-                "name": user.username
-            };
-        } catch (error) {
-            return error;
-        }
+        const user = await this.prisma.user.create({
+            data: {
+                email: registerData.email,
+                username: registerData.username,
+                password: registerData.password
+            }
+        });
+        // console.log(user);
+
+        return {
+            "id": user.id,
+            "username": user.username,
+            "email": user.email
+        };
+
     }
 }
