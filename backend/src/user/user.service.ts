@@ -26,7 +26,6 @@ export class UserService {
                 password: registerData.password
             }
         });
-        // console.log(user);
 
         return {
             "id": user.id,
