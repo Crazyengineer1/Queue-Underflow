@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { questionDto } from './DTO/question.dto';
 
@@ -47,5 +47,17 @@ export class QuestionService {
             "id": question.id,
             "message": "Question created"
         }
+    }
+
+    async findbyID(id: string) {
+
+        const data = await this.prisma.question.findUnique({
+            where: { id }
+        });
+
+        if (!data) {
+            throw new NotFoundException('Question not found');
+        }
+        return data;
     }
 }

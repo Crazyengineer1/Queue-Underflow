@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { questionDto } from './DTO/question.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { QuestionService } from './question.service';
@@ -14,6 +14,12 @@ export class QuestionController {
             Number(page) || 1,
             Number(limit) || 10
         );
+    }
+
+    @Get(':id')
+    getQueston(@Param('id') id: string) {
+        // return `ID is ${id}`;
+        return this.questionService.findbyID(id);
     }
 
     @UseGuards(AuthGuard('jwt'))
