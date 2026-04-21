@@ -71,4 +71,17 @@ export class AuthService {
 
         return this.handleAuth(user, res);
     }
+
+    async logout(res: Response) {
+        res.clearCookie('token', {
+            httpOnly: true,
+            secure: false, // true in production
+            sameSite: 'lax',
+            maxAge: 20 * 24 * 60 * 60 * 1000,
+        });
+
+        return {
+            "message": "User logged out"
+        }
+    }
 }
