@@ -18,7 +18,6 @@ export class QuestionController {
 
     @Get(':id')
     getQueston(@Param('id') id: string) {
-        // return `ID is ${id}`;
         return this.questionService.findbyID(id);
     }
 
