@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { answerDto } from './DTO/answer.dto';
 
@@ -17,5 +17,16 @@ export class AnswerService {
         return {
             "message": "Answer added"
         }
+    }
+
+    async getAnswer(questionId: string) {
+        const data = this.prismaService.answer.findMany({
+            where: { questionId }
+        })
+
+        if (!data) {
+            throw new NotFoundException("Answers not found");
+        }
+        return data;
     }
 }
