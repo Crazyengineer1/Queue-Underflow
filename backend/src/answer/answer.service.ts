@@ -28,13 +28,19 @@ export class AnswerService {
     }
 
     async getAnswer(questionId: string) {
-        const data = await this.prismaService.answer.findMany({
-            where: { questionId }
+        const question = await this.prismaService.question.findUnique({
+            where: { id: questionId }
         })
 
-        if (data.length === 0) {
-            throw new NotFoundException("Answers not found");
+        if (!question) {
+            throw new NotFoundException("Question not found");
         }
+
+        const data = await this.prismaService.answer.findMany({
+            where: { questionId },
+            orderBy: { created_at: 'desc' }
+        })
+
         return data;
     }
 }
