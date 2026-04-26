@@ -24,4 +24,24 @@ export class CommentService {
             "message": "Comment added"
         }
     }
+
+    async createAnswerComment(commentData: commentDto, answerId: string, userId: string) {
+        const data = await this.prismaService.answer.findUnique({
+            where: { id: answerId }
+        });
+
+        if (!data) {
+            throw new NotFoundException("Answer Not found");
+        }
+        const comment = await this.prismaService.answerComment.create({
+            data: {
+                content: commentData.content,
+                answerId,
+                userId,
+            }
+        })
+        return {
+            "message": "Comment added"
+        }
+    }
 }

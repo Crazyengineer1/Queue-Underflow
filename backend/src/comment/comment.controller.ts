@@ -12,4 +12,10 @@ export class CommentController {
     questionCommet(@Param('id') id: string, @Body() commentData: commentDto, @Req() req) {
         return this.commentService.createQuestionComment(commentData, id, req.user.id);
     }
+
+    @UseGuards(AuthGuard('jwt'))
+    @Post('answer/:id')
+    answerCommet(@Param('id') id: string, @Body() commentData: commentDto, @Req() req) {
+        return this.commentService.createAnswerComment(commentData, id, req.user.id);
+    }
 }
