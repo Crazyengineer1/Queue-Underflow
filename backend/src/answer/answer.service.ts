@@ -6,6 +6,14 @@ import { answerDto } from './DTO/answer.dto';
 export class AnswerService {
     constructor(private readonly prismaService: PrismaService) { }
     async createAnswer(answerData: answerDto, userId: string, questionId: string) {
+        const data = await this.prismaService.question.findUnique({
+            where: { id: questionId }
+        });
+
+        if (!data) {
+            throw new NotFoundException("Question Not found");
+        }
+
         const answer = await this.prismaService.answer.create({
             data: {
                 content: answerData.content,
@@ -20,11 +28,11 @@ export class AnswerService {
     }
 
     async getAnswer(questionId: string) {
-        const data = this.prismaService.answer.findMany({
+        const data = await this.prismaService.answer.findMany({
             where: { questionId }
         })
 
-        if (!data) {
+        if (data.length === 0) {
             throw new NotFoundException("Answers not found");
         }
         return data;
