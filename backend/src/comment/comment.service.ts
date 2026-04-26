@@ -25,6 +25,25 @@ export class CommentService {
         }
     }
 
+    async getQuestionComments(questionId: string, page: number, limit: number) {
+        const skip = (page - 1) * limit;
+        const [comments, total] = await Promise.all([
+            this.prismaService.questionComment.findMany({
+                skip,
+                take: limit,
+                where: { questionId },
+            }),
+            this.prismaService.questionComment.count({ where: { questionId } })
+        ]);
+
+        return {
+            data: comments,
+            page,
+            limit,
+            total,
+        };
+    }
+
     async createAnswerComment(commentData: commentDto, answerId: string, userId: string) {
         const data = await this.prismaService.answer.findUnique({
             where: { id: answerId }
