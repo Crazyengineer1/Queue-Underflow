@@ -20,11 +20,11 @@ export class AnswerService {
     }
 
     async getAnswer(questionId: string) {
-        const data = this.prismaService.answer.findMany({
+        const data = await this.prismaService.answer.findMany({
             where: { questionId }
         })
 
-        if (!data) {
+        if (data.length === 0) {
             throw new NotFoundException("Answers not found");
         }
         return data;
