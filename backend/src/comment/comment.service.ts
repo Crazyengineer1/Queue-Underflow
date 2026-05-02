@@ -5,24 +5,28 @@ import { commentDto } from './DTO/comment.dto';
 @Injectable()
 export class CommentService {
     constructor(private readonly prismaService: PrismaService) { }
-    async createQuestionComment(commentData: commentDto, questionId: string, userId: string) {
-        const data = await this.prismaService.question.findUnique({
-            where: { id: questionId }
-        });
+
+    private async validateExistence(model: any, id: string, entityName: string) {
+        const data = await model.findUnique({ where: { id } });
 
         if (!data) {
-            throw new NotFoundException("Question Not found");
+            throw new NotFoundException(`${entityName} not found`)
         }
-        const comment = await this.prismaService.questionComment.create({
-            data: {
-                content: commentData.content,
-                userId,
-                questionId,
-            }
+    }
+
+    private async createComment(model: any, data: any) {
+        await model.create({ data });
+        return { message: "Comment added" };
+    }
+
+    async createQuestionComment(commentData: commentDto, questionId: string, userId: string) {
+        await this.validateExistence(this.prismaService.question, questionId, "Question");
+
+        return await this.createComment(this.prismaService.questionComment, {
+            content: commentData.content,
+            userId,
+            questionId,
         });
-        return {
-            "message": "Comment added"
-        }
     }
 
     async getQuestionComments(questionId: string, page: number, limit: number) {
@@ -45,22 +49,12 @@ export class CommentService {
     }
 
     async createAnswerComment(commentData: commentDto, answerId: string, userId: string) {
-        const data = await this.prismaService.answer.findUnique({
-            where: { id: answerId }
-        });
+        await this.validateExistence(this.prismaService.answer, answerId, "Answer");
 
-        if (!data) {
-            throw new NotFoundException("Answer Not found");
-        }
-        const comment = await this.prismaService.answerComment.create({
-            data: {
-                content: commentData.content,
-                answerId,
-                userId,
-            }
-        })
-        return {
-            "message": "Comment added"
-        }
+        return this.createComment(this.prismaService.answerComment, {
+            content: commentData.content,
+            answerId,
+            userId,
+        });
     }
 }
