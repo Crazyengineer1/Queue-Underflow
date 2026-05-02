@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { AnswerService } from './answer.service';
 import { AuthGuard } from '@nestjs/passport';
 import { answerDto } from './DTO/answer.dto';
@@ -14,7 +14,7 @@ export class AnswerController {
     }
 
     @Get(':id')
-    getAnswers(@Param('id') id: string) {
-        return this.answerService.getAnswer(id);
+    getAnswers(@Query('page') page: number, @Query('limit') limit: string, @Param('id') id: string) {
+        return this.answerService.getAnswer(id, Number(page), Number(limit));
     }
 }

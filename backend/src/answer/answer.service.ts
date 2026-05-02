@@ -27,7 +27,8 @@ export class AnswerService {
         }
     }
 
-    async getAnswer(questionId: string) {
+    async getAnswer(questionId: string, page: number, limit: number) {
+
         const question = await this.prismaService.question.findUnique({
             where: { id: questionId }
         })
@@ -36,11 +37,21 @@ export class AnswerService {
             throw new NotFoundException("Question not found");
         }
 
-        const data = await this.prismaService.answer.findMany({
-            where: { questionId },
-            orderBy: { created_at: 'desc' }
-        })
+        const skip = (page - 1) * limit;
+        const [answers, total] = await Promise.all([
+            this.prismaService.answer.findMany({
+                skip,
+                take: limit,
+                where: { questionId },
+            }),
+            this.prismaService.answer.count({ where: { questionId } })
+        ])
 
-        return data;
+        return {
+            data: answers,
+            page,
+            limit,
+            total,
+        }
     }
 }
