@@ -1,0 +1,22 @@
+{
+  "data" : [
+    { "id": 1, "title": "What is React?", "created_at": "2026-04-17T10:00:00.000Z", "views": 1 },
+    { "id": 2, "title": "Explain useEffect", "created_at": "2026-04-16T09:00:00.000Z", "views": 1 },
+    { "id": 3, "title": "What is Node.js?", "created_at": "2026-04-15T08:00:00.000Z", "views": 1 },
+    { "id": 4, "title": "What is Prisma?", "created_at": "2026-04-14T07:00:00.000Z", "views": 1 },
+    { "id": 5, "title": "Explain pagination", "created_at": "2026-04-13T06:00:00.000Z", "views": 1 },
+    { "id": 6, "title": "What is NestJS?", "created_at": "2026-04-12T05:00:00.000Z", "views": 1 },
+    { "id": 1, "title": "What is React?", "created_at": "2026-04-17T10:00:00.000Z", "views": 1 },
+    { "id": 2, "title": "Explain useEffect", "created_at": "2026-04-16T09:00:00.000Z", "views": 1 },
+    { "id": 3, "title": "What is Node.js?", "created_at": "2026-04-15T08:00:00.000Z", "views": 1 },
+    { "id": 4, "title": "What is Prisma?", "created_at": "2026-04-14T07:00:00.000Z", "views": 1 },
+    { "id": 5, "title": "Explain pagination", "created_at": "2026-04-13T06:00:00.000Z", "views": 1 },
+    { "id": 6, "title": "What is NestJS?", "created_at": "2026-04-12T05:00:00.000Z", "views": 1 },
+    { "id": 1, "title": "What is React?", "created_at": "2026-04-17T10:00:00.000Z", "views": 1 },
+    { "id": 2, "title": "Explain useEffect", "created_at": "2026-04-16T09:00:00.000Z", "views": 1 },
+    { "id": 3, "title": "What is Node.js?", "created_at": "2026-04-15T08:00:00.000Z", "views": 1 },
+    { "id": 4, "title": "What is Prisma?", "created_at": "2026-04-14T07:00:00.000Z", "views": 1 },
+    { "id": 5, "title": "Explain pagination", "created_at": "2026-04-13T06:00:00.000Z", "views": 1 },
+    { "id": 6, "title": "What is NestJS?", "created_at": "2026-04-12T05:00:00.000Z", "views": 1 }
+  ]
+}

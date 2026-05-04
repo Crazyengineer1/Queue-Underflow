@@ -1,0 +1,198 @@
+/*
+  Insta Comment Section CSS
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone-screen {
+  width: 400px;
+  height: 100vh;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: black;
+  color: white;
+  overflow-y: auto;
+  overscroll-behavior-y: smooth;
+}
+
+.comment-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-section > .user-id {
+  font-size: 10px;
+}
+
+.comment-section > .comment {
+  flex-wrap: wrap;
+  font-size: 17px;
+}
+
+.comment-section > .like{
+  color: white;
+  background-color: grey;
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+} */
+
+/* Insta CS CSS by ChatGPT
+.comment-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.comment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.comment-left {
+  max-width: 80%;
+}
+
+.user-id {
+  font-weight: bold;
+  margin: 0;
+}
+
+.comment-text {
+  margin: 2px 0 0 0;
+}
+
+.comment-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.like-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.like-count {
+  font-size: 12px;
+  color: gray;
+}
+*/
+
+/* Entire Question div */
+.all-question-container {
+  border: 1px black solid;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+/* All 'Questions' Heading */
+.all-question-container > .heading {
+  border-bottom: 1px black solid;
+  margin-left: 20px;
+}
+
+/* Question-list */
+.all-question-container > .question-list {
+    list-style: none;
+    width: 80%;
+
+}
+
+/* Each Question */
+.question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px black solid;
+  border-radius: 5px;
+  margin: 5px 0;
+  padding: 7px 3px;
+}
+
+/* Question Title */
+.question-title {
+  margin-left: 20px;
+  font-weight: bold;
+}
+
+/* Question Creation Time */
+.question-creation-time {
+  font-size: 10px;
+  font-weight: lighter;
+}
+
+/* Button Container div */
+.button-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 200px;
+  align-self: center;
+}
+
+/* Previous and Next buttons */
+.button-container > .prev-button, .next-button {
+  background-color: rgb(246, 79, 13);
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+
+/* Prev and Next buttons when disabled */
+.button-container > .btn:disabled {
+  background-color: darkgray;
+  color: white;
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+/* Prev and Next buttons when disabled and hovered */
+.btn:disabled:hover {
+  background-color: darkgray;
+}
+
+/* Page number displayer */
+.button-container > .page-number {
+  font-weight: bold;
+  color:rgb(77, 24, 3);
+}
+
+/* Loading text */
+.loading {
+  margin: 5% 0% 5% 10%;
+  font-size: 15px;
+  font-weight: bold;
+  align-self: center;
+}
+
+/* Error text */
+.error {
+  margin: 5% 30% 5% 30%;
+  font-size: 20px;
+  font-weight: bold;
+  align-self: center;
+}
+
+/* Error Try Again Button */
+.error-try-again-but {
+  align-self: center;
+  border: none;
+  border-radius: 8px;
+  background-color: rgb(246, 79, 13);
+  color: white;
+  margin: 10px;
+  padding: 3px 5px;
+  cursor: pointer;
+}
