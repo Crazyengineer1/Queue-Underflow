@@ -1,11 +1,58 @@
 import { Injectable } from '@nestjs/common';
-import { RegisterDto } from 'src/auth/DTO/userRegister.dto';
+import { RegisterDto } from '../auth/DTO/userRegister.dto';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class UserService {
-    register(registerData: RegisterDto) {
-        console.log(registerData);
-        return registerData;
+    constructor(private readonly prisma: PrismaService) { }
 
+    async findByEmail(email: string) {
+        return this.prisma.user.findUnique({
+            where: { email },
+        });
+    }
+
+    async findByUsername(username: string) {
+        return this.prisma.user.findUnique({
+            where: { username },
+        });
+    }
+
+    async createUser(registerData: RegisterDto) {
+        const user = await this.prisma.user.create({
+            data: {
+                email: registerData.email,
+                username: registerData.username,
+                password: registerData.password
+            }
+        });
+
+        return {
+            "id": user.id,
+            "username": user.username,
+            "email": user.email
+        };
+
+    }
+
+    async getUserInfo(id: string) {
+        return this.prisma.user.findUnique({
+            where: { id },
+            select: {
+                username: true,
+                email: true,
+                created_at: true,
+                questions: {
+                    select: {
+                        id: true,
+                        title: true,
+                        created_at: true,
+                    },
+                    orderBy: {
+                        created_at: 'desc',
+                    },
+                },
+            },
+        });
     }
 }

@@ -1,11 +1,11 @@
+datasource db {
+  provider = "postgresql"
+}
+
 generator client {
   provider     = "prisma-client"
   output       = "../generated/prisma"
   moduleFormat = "cjs"
-}
-
-datasource db {
-  provider = "postgresql"
 }
 
 enum VoteType {
@@ -62,7 +62,7 @@ model Answer {
 
 model Tag {
   id        String        @id @default(uuid())
-  name      String
+  name      String        @unique
   questions QuestionTag[]
 }
 
@@ -110,8 +110,6 @@ model QuestionComment {
   user       User     @relation(fields: [userId], references: [id])
   questionId String
   question   Question @relation(fields: [questionId], references: [id])
-
-  @@unique([userId, questionId])
 }
 
 model AnswerComment {
@@ -123,6 +121,4 @@ model AnswerComment {
   user     User   @relation(fields: [userId], references: [id])
   answerId String
   answer   Answer @relation(fields: [answerId], references: [id])
-
-  @@unique([userId, answerId])
 }
