@@ -29,15 +29,15 @@ export class CommentService {
         });
     }
 
-    async getQuestionComments(questionId: string, page: number, limit: number) {
+    async getPaginatedData(model: any, filterField: string, filterValue: string, page: number, limit: number) {
         const skip = (page - 1) * limit;
         const [comments, total] = await Promise.all([
-            this.prismaService.questionComment.findMany({
+            model.findMany({
                 skip,
                 take: limit,
-                where: { questionId },
+                where: { [filterField]: filterValue },
             }),
-            this.prismaService.questionComment.count({ where: { questionId } })
+            model.count({ where: { [filterField]: filterValue } })
         ]);
 
         return {
@@ -46,6 +46,10 @@ export class CommentService {
             limit,
             total,
         };
+    }
+
+    async getQuestionComments(questionId: string, page: number, limit: number) {
+        return this.getPaginatedData(this.prismaService.questionComment, "questionId", questionId, page, limit);
     }
 
     async createAnswerComment(commentData: commentDto, answerId: string, userId: string) {
