@@ -23,4 +23,9 @@ export class CommentController {
     answerCommet(@Param('id') id: string, @Body() commentData: commentDto, @Req() req) {
         return this.commentService.createAnswerComment(commentData, id, req.user.id);
     }
+
+    @Get('answer/:id')
+    getAnswerComments(@Query('page') page: string, @Query('limit') limit: string, @Param('id') id: string) {
+        return this.commentService.getAnswerComments(id, Number(page) || 1, Number(limit) || 10)
+    }
 }

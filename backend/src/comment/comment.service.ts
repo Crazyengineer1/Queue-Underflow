@@ -19,16 +19,6 @@ export class CommentService {
         return { message: "Comment added" };
     }
 
-    async createQuestionComment(commentData: commentDto, questionId: string, userId: string) {
-        await this.validateExistence(this.prismaService.question, questionId, "Question");
-
-        return await this.createComment(this.prismaService.questionComment, {
-            content: commentData.content,
-            userId,
-            questionId,
-        });
-    }
-
     async getPaginatedData(model: any, filterField: string, filterValue: string, page: number, limit: number) {
         const skip = (page - 1) * limit;
         const [comments, total] = await Promise.all([
@@ -48,6 +38,17 @@ export class CommentService {
         };
     }
 
+    async createQuestionComment(commentData: commentDto, questionId: string, userId: string) {
+        await this.validateExistence(this.prismaService.question, questionId, "Question");
+
+        return await this.createComment(this.prismaService.questionComment, {
+            content: commentData.content,
+            userId,
+            questionId,
+        });
+    }
+
+
     async getQuestionComments(questionId: string, page: number, limit: number) {
         return this.getPaginatedData(this.prismaService.questionComment, "questionId", questionId, page, limit);
     }
@@ -60,5 +61,9 @@ export class CommentService {
             answerId,
             userId,
         });
+    }
+
+    async getAnswerComments(answerId: string, page: number, limit: number) {
+        return this.getPaginatedData(this.prismaService.answerComment, "answerId", answerId, page, limit);
     }
 }
